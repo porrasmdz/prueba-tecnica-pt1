@@ -1,0 +1,38 @@
+services:
+  oracle:
+    image: gvenzl/oracle-xe:21
+    container_name: oracle-local
+    restart: unless-stopped
+
+    ports:
+      - "1521:1521"
+
+    environment:
+      ORACLE_PASSWORD: adminadmin123
+      APP_USER: expressapp
+      APP_USER_PASSWORD: adminadmin123
+
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  express-api:
+    build: .
+    container_name: express-api
+    restart: unless-stopped
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - oracle
+
+    env_file:
+      - .env
+volumes:
+  oracle-data:
