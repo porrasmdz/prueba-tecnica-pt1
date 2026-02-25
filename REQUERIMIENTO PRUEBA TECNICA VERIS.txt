@@ -1,0 +1,31 @@
+REQUERIMIENTO PRUEBA TECNICA VERIS
+X Proycto Expressjs 
+- BD EN ORACLE SCHEMA EN DOC CON MIGRACIONES Y RELACIONES
+- POBLAR LA BD CON DATOS DE PRUEBA (EN LAS MISMAS MIGS)
+
+- TypeORM como gestor de BD
+- USAR AUTH BASICA CON USER Y PASS, QUE RETORNA BEARER TOKEN (POST /autenticacion/login) 
+- ENDPOINTS CREATE Para pacientes donde id_paciente es una SECUENCIA DE ORACLE llamada MGM_SEQ_PACIENT
+	- Validar q el email sea valido
+	- Validar que tipo de identificacion exista
+	- Segundo nombre y segundo apellido no son obligatorios
+	- Registrar campos de auditoria (Usuario Ingreso, Fecha de Ingreso)
+	- POSTS (/pacientes)
+
+- ENDPOINTS UPDATE para pacientes donde id_paciente es una SECUENCIA DE ORACLE llamada MGM_SEQ_PACIENT
+	- Validar q el email sea valido
+	- Validar que tipo de identificacion exista
+	- Segundo nombre y segundo apellido no son obligatorios
+	- Registrar campos de auditoria (Usuario Ingreso, Fecha de Ingreso)
+	- PUT (/pacientes/{idPaciente})
+
+- ENDPOINT PARA INACTIVAR PACIENTE (Cambio de estado a inactivo).
+	- Registrar campos de auditoria (Usuario modificacion y fecha modificacion)
+	- DELETE /pacientes/{idPaciente}
+- ENDPOINT GET para pacientes con filtros de busqueda opcionales:
+	- Filtros -> numero_identificacion, nombre_completo, email, estado. Si no envía filtros 
+		me debe traer toda la data.
+	- Debe tener pagination
+	- La API solo me debe devolver usuarios activos si no se especifica el estado
+- Requiere seguir lineamiento de respuesta json como en punto 10 del DOCX
+- docs/ endpoint
