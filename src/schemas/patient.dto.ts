@@ -9,24 +9,21 @@ export const createPatientSchema = z.object({
         primer_apellido: z.string().min(1),
         segundo_apellido: z.string().optional(),
         email: z.email(),
-        estado: z.enum(['ACTIVO', 'INACTIVO']).optional(),
-    
-        id_tipo: z.number().int().positive(),
+        estado: z.enum(['ACTIVO', 'INACTIVO']).optional()
+
     }),
 });
 
 export const updatePatientSchema = z.object({
     body: z.object({
-        codigo_tipo_identificacion: z.string().optional(),
-        numero_identificacion: z.string().optional(),
+
         primer_nombre: z.string().optional(),
         segundo_nombre: z.string().optional(),
         primer_apellido: z.string().optional(),
         segundo_apellido: z.string().optional(),
         email: z.email().optional(),
-        estado: z.enum(['ACTIVO', 'INACTIVO']).optional(),
-    
-        id_tipo: z.number().int().positive().optional(),
+        estado: z.enum(['ACTIVO', 'INACTIVO']).optional()
+
     }),
 });
 

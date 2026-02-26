@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(cors(corsOptions));
 
 app.use('/', BaseRouter);
-app.use('/patients', PatientsRouter);
+app.use('/pacientes', PatientsRouter);
 
 app.use(...errorHandlers);
 

@@ -28,13 +28,16 @@ export class PatientsService {
 
     async create(data: Partial<Patient>) {
         const type = await this.typeRepo.findOne({
-            where: { id_tipo: data.id_tipo! },
+            where: { codigo_tipo_identificacion: data.codigo_tipo_identificacion! },
         });
         if (!type) {
-            throw new Error(`Identification type with id ${data.id_tipo} not found`);
+            throw new Error(`Identification type with code ${data.codigo_tipo_identificacion} not found`);
         }
 
         const newPatient = this.repo.create(data);
+        newPatient.tipoIdentificacion = type;
+        newPatient.id_tipo = type.id_tipo
+
         if (!data.estado) {
             newPatient.estado = status.active
         }
@@ -51,13 +54,10 @@ export class PatientsService {
     async update(id: number, data: Partial<Patient>) {
         const patient = await this.getOne(id);
 
-        if (data.id_tipo !== undefined) {
-            const type = await this.typeRepo.findOne({
-                where: { id_tipo: data.id_tipo },
-            });
-            if (!type) {
-                throw new Error(`Identification type with id ${data.id_tipo} not found`);
-            }
+        if (data.id_tipo !== undefined || data.codigo_tipo_identificacion !== undefined || data.numero_identificacion !== undefined) {
+
+            throw new Error(`id_tipo, codigo_tipo_identificacion, numero_identificacion not allowed`);
+
         }
         this.repo.merge(patient, data);
         const fullNameTokens = [patient.primer_nombre, patient.segundo_nombre, patient.primer_apellido, patient.segundo_apellido];
