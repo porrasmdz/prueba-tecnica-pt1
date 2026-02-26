@@ -5,7 +5,7 @@
 .env.test.local
 .env.production.local
 .env.local
-
+application.properties
 logs
 *.log
 npm-debug.log*
