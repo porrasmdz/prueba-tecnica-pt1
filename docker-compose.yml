@@ -18,18 +18,5 @@ services:
       timeout: 10s
       retries: 10
 
-  express-api:
-    build: .
-    container_name: express-api
-    restart: unless-stopped
-
-    ports:
-      - "3000:3000"
-
-    depends_on:
-      - oracle
-
-    env_file:
-      - .env
 volumes:
   oracle-data:
