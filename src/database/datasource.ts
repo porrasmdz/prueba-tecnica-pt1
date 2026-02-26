@@ -13,9 +13,9 @@ const AppDataSource = new DataSource({
     password: process.env.DB_PASSWORD!,
     serviceName: process.env.DB_SERVICE!,
     entities: [Patient, IdentificationType, User],
-    migrations: ["src/database/migrations/*.ts"],
+    migrations: ["dist/database/migrations/*.js"], //["src/database/migrations/*.ts"],
     synchronize: false,
-    logging: true,
+    logging: (process?.env?.NODE_ENV ?? "") === "development",
 })
 
 export default AppDataSource

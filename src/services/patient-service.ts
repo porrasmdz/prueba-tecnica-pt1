@@ -16,7 +16,6 @@ export class PatientsService {
         page?: number,
         limit?: number
     }) {
-        console.log(filters)
         const qb = this.repo.createQueryBuilder('patient')
             .leftJoinAndSelect('patient.tipoIdentificacion', 'tipoIdentificacion');
 
