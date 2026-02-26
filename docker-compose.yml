@@ -7,10 +7,9 @@ services:
     ports:
       - "1521:1521"
 
-    environment:
-      ORACLE_PASSWORD: adminadmin123
-      APP_USER: expressapp
-      APP_USER_PASSWORD: adminadmin123
+
+    env_file:
+      - .env.db.development
 
     volumes:
       - oracle-data:/opt/oracle/oradata
