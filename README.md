@@ -1,5 +1,4 @@
-init cmd
-
+###VERSION EXPRESSJS####
 1. Llenar .env y .env.db
 2. Correr migraciones
     $pnpm run typeorm migration:run
@@ -16,4 +15,10 @@ USUARIO DE PRUEBA
 username: admin@mail.com
 password: adminadmin123
 
-1.
+###VERSION JAVA#####
+0. No hace falta ejecutar migraciones porque ya corrieron previamente sobre la misma BD
+1. Llenar application.properties con DB_USER, DB_PASS, JWT_SECRET.
+2. Ejecutar proyecto: ./mvnw spring-boot:run o desde IDE.
+3. Probar en http://localhost:8080.
+    username: admin@mail.com 
+    password: adminadmin123.
