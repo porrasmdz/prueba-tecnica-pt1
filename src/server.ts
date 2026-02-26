@@ -1,3 +1,4 @@
+
 import express, { Express } from 'express';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -8,6 +9,8 @@ import BaseRouter from './routes/index';
 
 import { errorHandlers } from './shared/errorHandler';
 import { StatusCodes } from 'http-status-codes';
+
+import AppDataSource from './database/datasource';
 
 const app: Express = express();
 
@@ -36,7 +39,7 @@ app.use((req, res) => {
 });
 
 const init = async (): Promise<Express> => {
-    // await DBCONNECTION SERVICE
+    await AppDataSource.initialize()
     return app;
 };
 

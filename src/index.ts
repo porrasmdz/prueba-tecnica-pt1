@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import './config/load-env';
 import init from './server';
 import logger from './logger/logger';
