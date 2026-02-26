@@ -1,7 +1,10 @@
 ###VERSION EXPRESSJS####
-1. Llenar .env y .env.db
+1. Llenar .env y .env.db e instalar deps
+    $pnpm i
+
 2. Correr migraciones
     $pnpm run typeorm migration:run
+
 3. Levantar contenedores
     $docker compose up -d 
     
