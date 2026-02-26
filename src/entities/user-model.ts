@@ -1,4 +1,3 @@
-// import "reflect-metadata";
 import { Entity, PrimaryGeneratedColumn, Column, Unique } from "typeorm";
 
 @Entity({ name: "users" })

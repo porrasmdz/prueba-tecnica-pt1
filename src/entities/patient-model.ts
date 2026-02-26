@@ -1,5 +1,4 @@
-// import "reflect-metadata"
-import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm"
 import { IdentificationType } from "./identification-type-model";
 
 @Entity({ name: 'mgm_pacientes' })

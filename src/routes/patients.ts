@@ -19,7 +19,6 @@ router.get("/", async (req, res) => {
         const result = await service.getAll(parsed.query);
         return sendSuccess(res, result, "Pacientes obtenidos correctamente");
     } catch (error: any) {
-        // res.status(500).json({ message: error.message });
         return sendError(res, error.message, error.stack, 500)
     }
 });

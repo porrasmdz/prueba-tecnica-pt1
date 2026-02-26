@@ -1,5 +1,4 @@
-// import "reflect-metadata"
-import { BeforeInsert, Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, Unique } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity({ name: "daf_tipos_identificacion" })
 

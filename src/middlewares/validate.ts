@@ -22,7 +22,6 @@ export const validate =
                         error: e.message,
                     }));
 
-                    // res.status(StatusCodes.BAD_REQUEST).json(errors);
                     sendError(res, "Errores de validación", errors, StatusCodes.BAD_REQUEST)
                     return;
                 }
