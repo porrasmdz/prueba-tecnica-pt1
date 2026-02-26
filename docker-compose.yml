@@ -6,8 +6,6 @@ services:
 
     ports:
       - "1521:1521"
-
-
     env_file:
       - .env.db.development
 
