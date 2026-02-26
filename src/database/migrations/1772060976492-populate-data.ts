@@ -4,23 +4,31 @@ export class PopulateData1772060976492 implements MigrationInterface {
     name = 'PopulateData1772060976492'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+
         await queryRunner.query(`
-            INSERT INTO daf_tipos_identificacion
+            INSERT INTO "daf_tipos_identificacion"
             ( "nombre_tipo_identificacion", "codigo_tipo_identificacion", "estado")
             VALUES
             ('Cédula', 'CED', 'ACTIVO')
         `);
 
         await queryRunner.query(`
-            INSERT INTO daf_tipos_identificacion
+            INSERT INTO "daf_tipos_identificacion"
             ( "nombre_tipo_identificacion", "codigo_tipo_identificacion", "estado")
             VALUES
             ('Pasaporte', 'PAS', 'ACTIVO')
         `);
-        await queryRunner.commitTransaction()
-        await queryRunner.query(`
-            INSERT INTO mgm_pacientes
-            (
+        const cedIdResult: { ID_TIPO: number }[] = await queryRunner.query(`
+            SELECT "id_tipo" AS ID_TIPO
+            FROM "daf_tipos_identificacion"
+            WHERE "codigo_tipo_identificacion" = 'CED'
+        `);
+
+
+        const cedId = cedIdResult[0]?.ID_TIPO;
+        await queryRunner.query(
+            `
+            INSERT INTO "mgm_pacientes" (
                 "codigo_tipo_identificacion",
                 "numero_identificacion",
                 "primer_nombre",
@@ -35,30 +43,27 @@ export class PopulateData1772060976492 implements MigrationInterface {
                 "fecha_modificacion",
                 "usuario_modificacion",
                 "id_tipo"
-            )
-            VALUES
-            (
-                'CED',
-                '0923456789',
-                'Juan',
-                'Carlos',
-                'Pérez',
-                'García',
-                'Juan Carlos Pérez García',
-                'juan@example.com',
-                'ACTIVO',
-                SYSDATE,
-                'admin',
-                SYSDATE,
-                'admin',
-                1
-            )
-        `)
+            ) VALUES 
+             ( 'CED', 
+              '0923456789', 
+              'Juan', 
+              'Carlos', 'Pérez', 'García', 'Juan Carlos Pérez García', 'juan@example.com', 
+              'ACTIVO', 
+              SYSDATE, 
+              'admin', 
+              SYSDATE, 
+              'admin', 
+              ${cedId})
+        `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+
         await queryRunner.query(`
-            DELETE FROM daf_tipos_identificacion
+            DELETE FROM "mgm_pacientes"      
+        `);
+        await queryRunner.query(`
+            DELETE FROM "daf_tipos_identificacion"
             WHERE "codigo_tipo_identificacion" IN ('CED','PAS')
         `);
     }

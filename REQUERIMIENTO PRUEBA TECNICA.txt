@@ -2,13 +2,13 @@ REQUERIMIENTO PRUEBA TECNICA
 X Proycto Expressjs 
 X TypeORM como gestor de BD
 X BD EN ORACLE SCHEMA EN DOC CON MIGRACIONES Y RELACIONES
-- POBLAR LA BD CON DATOS DE PRUEBA (EN LAS MISMAS MIGS)
+X POBLAR LA BD CON DATOS DE PRUEBA (EN LAS MISMAS MIGS)
 
 - USAR AUTH BASICA CON USER Y PASS, QUE RETORNA BEARER TOKEN (POST /autenticacion/login) 
-- ENDPOINTS CREATE Para pacientes donde id_paciente es una SECUENCIA DE ORACLE llamada MGM_SEQ_PACIENT
-	- Validar q el email sea valido
-	- Validar que tipo de identificacion exista
-	- Segundo nombre y segundo apellido no son obligatorios
+X ENDPOINTS CREATE Para pacientes donde id_paciente es una SECUENCIA DE ORACLE llamada MGM_SEQ_PACIENT
+	X Validar q el email sea valido
+	X Validar que tipo de identificacion exista
+	X Segundo nombre y segundo apellido no son obligatorios
 	- Registrar campos de auditoria (Usuario Ingreso, Fecha de Ingreso)
 	- POSTS (/pacientes)
 

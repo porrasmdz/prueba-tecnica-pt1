@@ -6,6 +6,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import corsOptions from "./config/cors"
 import BaseRouter from './routes/index';
+import PatientsRouter from './routes/patients';
 
 import { errorHandlers } from './shared/errorHandler';
 import { StatusCodes } from 'http-status-codes';
@@ -31,6 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use(cors(corsOptions));
 
 app.use('/', BaseRouter);
+app.use('/patients', PatientsRouter);
 
 app.use(...errorHandlers);
 

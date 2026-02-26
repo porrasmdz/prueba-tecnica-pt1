@@ -17,13 +17,13 @@ export class Patient {
     @Column()
     primer_nombre!: string
 
-    @Column()
+    @Column({ nullable: true })
     segundo_nombre!: string
 
     @Column()
     primer_apellido!: string
 
-    @Column()
+    @Column({ nullable: true })
     segundo_apellido!: string
 
     @Column()
@@ -40,9 +40,9 @@ export class Patient {
     @Column()
     usuario_ingreso!: string
 
-    @Column({ type: "timestamp", name: "fecha_modificacion" })
+    @Column({ type: "timestamp", name: "fecha_modificacion", nullable: true })
     fecha_modificacion!: Date
-    @Column()
+    @Column({ nullable: true })
     usuario_modificacion!: string
 
     @ManyToOne(() => IdentificationType, {
