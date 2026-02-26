@@ -1,5 +1,5 @@
 REQUERIMIENTO PRUEBA TECNICA
-- USAR AUTH BASICA CON USER Y PASS, QUE RETORNA BEARER TOKEN (POST /autenticacion/login) 
+X USAR AUTH BASICA CON USER Y PASS, QUE RETORNA BEARER TOKEN (POST /autenticacion/login) 
 X Agregar mas datos de ejemplo
 X Requiere seguir lineamiento de respuesta json como en punto 10 del DOCX
 X Proycto Expressjs 

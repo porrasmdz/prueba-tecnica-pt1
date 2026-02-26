@@ -7,11 +7,13 @@ import morgan from 'morgan';
 import corsOptions from "./config/cors"
 import BaseRouter from './routes/index';
 import PatientsRouter from './routes/patients';
+import AuthRouter from './routes/auth';
 
 import { errorHandlers } from './shared/errorHandler';
 import { StatusCodes } from 'http-status-codes';
 
 import AppDataSource from './database/datasource';
+import { authMiddleware } from './middlewares/auth';
 
 const app: Express = express();
 
@@ -32,6 +34,9 @@ if (process.env.NODE_ENV === 'production') {
 app.use(cors(corsOptions));
 
 app.use('/', BaseRouter);
+app.use("/auth", AuthRouter);
+
+app.use(authMiddleware);
 app.use('/pacientes', PatientsRouter);
 
 app.use(...errorHandlers);
