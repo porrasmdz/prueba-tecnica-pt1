@@ -1,6 +1,7 @@
 import { ErrorRequestHandler } from "express";
 import { StatusCodes } from "http-status-codes";
 import logger from "../logger/logger";
+import { sendError } from "./responseHelper";
 
 export const unknownErrorHandler: ErrorRequestHandler = (
     err,
@@ -9,9 +10,8 @@ export const unknownErrorHandler: ErrorRequestHandler = (
     next
 ) => {
     logger.error(err);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: 'Internal server error',
-    });
+    sendError(res, "Error desconocido", err, StatusCodes.INTERNAL_SERVER_ERROR)
+
 };
 
 export const errorHandlers: ErrorRequestHandler[] = [

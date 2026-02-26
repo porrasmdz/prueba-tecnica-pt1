@@ -1,7 +1,6 @@
 REQUERIMIENTO PRUEBA TECNICA
-- docs/ endpoint
 - USAR AUTH BASICA CON USER Y PASS, QUE RETORNA BEARER TOKEN (POST /autenticacion/login) 
-- Agregar mas datos de ejemplo
+X Agregar mas datos de ejemplo
 X Requiere seguir lineamiento de respuesta json como en punto 10 del DOCX
 X Proycto Expressjs 
 X TypeORM como gestor de BD
@@ -25,7 +24,7 @@ X ENDPOINT PARA INACTIVAR PACIENTE (Cambio de estado a inactivo).
 	X Registrar campos de auditoria (Usuario modificacion y fecha modificacion)
 	X DELETE /pacientes/{idPaciente}
 
-- ENDPOINT GET para pacientes con filtros de busqueda opcionales:
+X ENDPOINT GET para pacientes con filtros de busqueda opcionales:
 	X Filtros -> numero_identificacion, nombre_completo, email, estado. Si no envía filtros 
 		me debe traer toda la data.
 	X Debe tener pagination

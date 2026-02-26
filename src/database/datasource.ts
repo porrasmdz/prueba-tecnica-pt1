@@ -1,4 +1,4 @@
-import "reflect-metadata";
+// import "reflect-metadata";
 import "dotenv/config";
 import { DataSource } from "typeorm";
 import { Patient } from "../entities/patient-model";

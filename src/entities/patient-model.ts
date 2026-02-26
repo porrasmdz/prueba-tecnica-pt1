@@ -1,4 +1,4 @@
-import "reflect-metadata"
+// import "reflect-metadata"
 import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm"
 import { IdentificationType } from "./identification-type-model";
 
