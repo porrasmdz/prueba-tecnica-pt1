@@ -3,19 +3,24 @@ import {
     createPatientSchema,
     updatePatientSchema,
     findPatientParams,
+    findPatientsQuerySchema,
 } from "../schemas/patient.dto";
 import { PatientsService } from "../services/patient-service";
 import { validate } from "../middlewares/validate";
+import { sendError, sendSuccess } from "../shared/responseHelper";
 
 const router: Router = Router();
 const service = new PatientsService();
 
 router.get("/", async (req, res) => {
     try {
-        const patients = await service.getAll();
-        res.json(patients);
+        const parsed = findPatientsQuerySchema.parse({ query: req.query });
+
+        const result = await service.getAll(parsed.query);
+        return sendSuccess(res, result, "Pacientes obtenidos correctamente");
     } catch (error: any) {
-        res.status(500).json({ message: error.message });
+        // res.status(500).json({ message: error.message });
+        return sendError(res, error.message, error.stack, 500)
     }
 });
 
@@ -26,9 +31,9 @@ router.get(
         try {
             const id = Number(req.params.id);
             const patient = await service.getOne(id);
-            res.json(patient);
+            return sendSuccess(res, patient, "Paciente obtenido correctamente");
         } catch (error: any) {
-            res.status(404).json({ message: error.message });
+            return sendError(res, error.message, error, 404)
         }
     }
 );
@@ -39,24 +44,28 @@ router.post(
     async (req, res) => {
         try {
             const created = await service.create(req.body);
-            res.status(201).json(created);
+
+            return sendSuccess(res, created, "Paciente creado correctamente", 201);
         } catch (error: any) {
-            res.status(400).json({ message: error.message });
+
+            return sendError(res, error.message, error, 400)
         }
     }
 );
 
 router.put(
     "/:id",
-    validate(findPatientParams),        // valida param id
-    validate(updatePatientSchema),       // valida body update
+    validate(findPatientParams),
+    validate(updatePatientSchema),
     async (req, res) => {
         try {
             const id = Number(req.params.id);
             const updated = await service.update(id, req.body);
-            res.json(updated);
+
+            return sendSuccess(res, updated, "Paciente actualizado correctamente");
         } catch (error: any) {
-            res.status(400).json({ message: error.message });
+
+            return sendError(res, error.message, error, 400)
         }
     }
 );
@@ -68,9 +77,10 @@ router.delete(
         try {
             const id = Number(req.params.id);
             const result = await service.delete(id);
-            res.json(result);
+            return sendSuccess(res, result, "Paciente eliminado correctamente");
         } catch (error: any) {
-            res.status(400).json({ message: error.message });
+
+            return sendError(res, error.message, error, 400)
         }
     }
 );

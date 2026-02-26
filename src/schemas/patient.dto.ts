@@ -32,3 +32,14 @@ export const findPatientParams = z.object({
         id: z.coerce.number().int().positive(),
     }),
 });
+
+export const findPatientsQuerySchema = z.object({
+    query: z.object({
+        numero_identificacion: z.string().optional(),
+        nombre_completo: z.string().optional(),
+        email: z.string().optional(),
+        estado: z.enum(['ACTIVO', 'INACTIVO']).optional(),
+        page: z.coerce.number().int().positive().default(1),
+        limit: z.coerce.number().int().positive().default(10),
+    }),
+});

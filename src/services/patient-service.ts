@@ -8,11 +8,45 @@ export class PatientsService {
     private repo = AppDataSource.getRepository(Patient);
     private typeRepo = AppDataSource.getRepository(IdentificationType);
 
-    async getAll() {
-        const patients = await this.repo.find({
-            relations: ["tipoIdentificacion"],
-        });
-        return patients;
+    async getAll(filters: {
+        numero_identificacion?: string | undefined,
+        nombre_completo?: string | undefined,
+        email?: string | undefined,
+        estado?: 'ACTIVO' | 'INACTIVO' | undefined,
+        page?: number,
+        limit?: number
+    }) {
+        console.log(filters)
+        const qb = this.repo.createQueryBuilder('patient')
+            .leftJoinAndSelect('patient.tipoIdentificacion', 'tipoIdentificacion');
+
+        if (filters.numero_identificacion) {
+            qb.andWhere('patient.numero_identificacion LIKE :numero', { numero: `%${filters.numero_identificacion}%` });
+        }
+        if (filters.nombre_completo) {
+            qb.andWhere('patient.nombre_completo LIKE :nombre', { nombre: `%${filters.nombre_completo}%` });
+        }
+        if (filters.email) {
+            qb.andWhere('patient.email LIKE :email', { email: `%${filters.email}%` });
+        }
+
+        if (filters.estado) {
+            qb.andWhere('patient.estado = :estado', { estado: filters.estado });
+        } else {
+            qb.andWhere('patient.estado = :estado', { estado: 'ACTIVO' });
+        }
+
+        const page = filters.page || 1;
+        const limit = filters.limit || 10;
+        qb.skip((page - 1) * limit).take(limit);
+
+        const [data, total] = await qb.getManyAndCount();
+
+        return {
+            rows: data,
+            totalRows: total,
+
+        };
     }
 
     async getOne(id: number) {
@@ -53,6 +87,9 @@ export class PatientsService {
 
     async update(id: number, data: Partial<Patient>) {
         const patient = await this.getOne(id);
+        if (!patient) {
+            throw new Error(`Patient with id ${id} not found`);
+        }
 
         if (data.id_tipo !== undefined || data.codigo_tipo_identificacion !== undefined || data.numero_identificacion !== undefined) {
 
@@ -72,7 +109,13 @@ export class PatientsService {
 
     async delete(id: number) {
         const patient = await this.getOne(id);
-        await this.repo.remove(patient);
-        return { deleted: true };
+        if (!patient) {
+            throw new Error(`Patient with id ${id} not found`);
+        }
+
+        patient.estado = status.inactive
+        patient.fecha_modificacion = new Date()
+        patient.usuario_modificacion = 'admin'
+        return this.repo.save(patient);
     }
 }
