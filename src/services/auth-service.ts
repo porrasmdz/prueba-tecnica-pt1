@@ -6,7 +6,7 @@ import { User } from "../entities/user-model";
 
 export class AuthService {
     private userRepo = AppDataSource.getRepository(User);
-    private jwtSecret = process.env.JWT_SECRET || "supersecretkey";
+    private jwtSecret = process.env.JWT_SECRET!;
 
     async register(username: string, password: string) {
         const existing = await this.userRepo.findOne({ where: { username } });
